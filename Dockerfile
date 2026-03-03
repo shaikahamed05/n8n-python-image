@@ -2,10 +2,12 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Install Python
-RUN apk add --no-cache python3 py3-pip
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get clean
 
-# Create symlink for python
-RUN ln -sf python3 /usr/bin/python
+RUN ln -sf /usr/bin/python3 /usr/bin/python
+
+RUN pip3 install requests pandas numpy
 
 USER node
